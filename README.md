@@ -1,36 +1,168 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Portfolio — Capstone Plan
 
-## Getting Started
+**Project:** Personal Portfolio App  
+**Owner:** Muna Mohammed  
+**Repo:** `personal-portfolio-capstone`
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project summary
+A modern, responsive personal portfolio built with Next.js + TypeScript and Tailwind CSS that showcases projects, skills, an about section, and a contact form. Designed for recruiters, collaborators, and clients to learn about my work and contact me.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech stack
+- **Framework:** Next.js (App Router) + TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Charts:** Recharts (for skills / progress visuals)
+- **Testing:** Vitest + @testing-library/react
+- **Hosting:** Vercel
+- **Version Control:** Git + GitHub  
+- **AI-Enhanced IDE:** Cursor  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+<!-- AUTO-FEATURES:START -->
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Responsive Navbar with mobile menu
+- Animated Hero section (Framer Motion)
+- About section with skill chart
+- Contact form with a11y validation
+- ProjectCard component with badges and links
+- Projects page (App Router)
+- Projects API (GET/POST)
+- Project item API (GET/PUT/DELETE)
+- Contact API endpoint
+- Mongoose + Mongo integration
+- Vitest tests for ProjectCard
+- Vitest tests for ContactForm
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<!-- AUTO-FEATURES:END -->
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## MVP features (minimum for capstone)
+1. Landing / Hero section with CTA
+2. Projects page/grid using a typed `Project` list (local data file)
+3. About section + skill chart
+4. Contact form
+5. Deployed on Vercel
+6. README with AI integration plan (this file)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Data model (client-side)
+```ts
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  techStack: string[];
+  repoUrl?: string;
+  liveUrl?: string;
+  image?: string;
+}
+
+---
+
+## 🧠 AI Integration Strategy
+
+### 1. 🧱 Code or Feature Generation
+- Use **Cursor** to scaffold React components (Navbar, About, Projects, Contact forms).  
+- Ask AI to generate **responsive Tailwind CSS layouts**.  
+- Use prompts for reusable utility functions (e.g., form validation).  
+
+## Prompt Strategy
+1. **For code generation**  
+**used Prompts:** 
+
+> “Generate a responsive Next.js portfolio landing page hero component.
+File: components/Hero.tsx
+- Client component
+- Use Tailwind CSS + Framer Motion for animations
+- Props: none (hardcode name + short bio for now)
+- Include accessible semantics (role="banner", h1 for name, p for bio, button with aria-label)”
+
+> “Create a Next.js App Router projects page.
+File: app/projects/page.tsx
+- Server component
+- Import Project[] data from data/projects.ts
+- Render responsive grid of ProjectCard components
+- Use Tailwind responsive grid classes”
+
+
+> “Create a ProjectCard component.
+File: components/ProjectCard.tsx
+Props: 
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  techStack: string[];
+  repoUrl?: string;
+  liveUrl?: string;
+  image?: string;
+}
+Requirements:
+- Render title, description, tech badges
+- Display repoUrl and liveUrl as accessible links
+- Use Tailwind CSS for styling, include placeholder image if image is missing
+- Accessible markup (aria-labels on links)”
+
+---
+
+### 2. 🧪 Testing Support
+- Used **Jest + React Testing Library** for component testing.  
+
+**Used Prompts:**  
+> “Write a Vitest + Testing Library test for ProjectCard.
+File: components/ProjectCard.test.tsx
+- Render component with mocked Project props
+- Assert title, description, and tech badges render correctly
+- Assert repoUrl and liveUrl render if provided
+- Use screen.getByText / getByRole”
+
+> “Write tests for ContactForm component.
+File: components/ContactForm.test.tsx
+- Check required fields validation (name, email, message)
+- Mock global.fetch
+- Assert successful submission calls fetch with correct body
+- Use Vitest + @testing-library/react”
+
+3. **For documentation**  
+- Use AI to generate docstrings and inline comments explaining intent and edge cases.
+**Used Prompts:**  
+   > “Add JSDoc-style comments
+- Document each prop and its purpose
+- Describe edge cases and assumptions
+- Keep comments concise but clear”  
+
+---
+
+### 3. 📡 Schema-Aware or API-Aware Generation
+- Context-aware scaffolding
+When adding server/API code, provided the AI with file context (anchors like #File or @file) so outputs match codebase conventions.
+  - Use AI to generate CRUD routes for projects.  
+  - Feed schema definitions into Cursor for context-aware generation.  
+
+**used Prompt:**  
+> “Based on this Mongoose schema for a project model, generate CRUD endpoints.”
+
+---
+
+### 4. 🔍 In-Editor/PR Review Tooling
+- Use CodeRabbit and built-in Cursor review to review diffs.
+- Use AI to generate clear commit messages and PR summaries.
+  - Suggest better commit messages.  
+  - Generate PR summaries.  
+  - Catch redundant code or unused imports.  
+  - Improve documentation in real-time.  
+---
+
+
+
+
+

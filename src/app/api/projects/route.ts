@@ -27,6 +27,11 @@ export async function POST(request: Request) {
   try {
     await connectMongo(process.env.MONGODB_URI || "");
     const body = await request.json();
+
+     // Add basic validation
+     if (!body || typeof body !== 'object') {
+      return NextResponse.json({ ok: false, error: "Invalid request body" }, { status: 400 });
+
     const doc = await Project.create(body);
     return NextResponse.json(doc, { status: 201 });
   } catch (err) {
