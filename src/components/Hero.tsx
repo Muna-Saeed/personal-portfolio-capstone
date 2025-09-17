@@ -69,9 +69,7 @@ export default function Hero() {
             variants={fadeUp}
             className="mt-6 text-base leading-7 text-slate-600 sm:text-lg dark:text-slate-300"
           >
-            I’m a full-stack engineer crafting delightful, accessible web experiences with
-            React, Next.js, and TypeScript. I love bringing ideas to life with clean code,
-            subtle motion, and thoughtful design.
+            I’m a full-stack engineer building robust, accessible web applications from database to UI. I work across the stack with React, Next.js, TypeScript, and Node.js—bringing ideas to life with clean code, subtle motion, and thoughtful design.
           </motion.p>
 
           <motion.div

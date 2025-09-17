@@ -18,8 +18,7 @@ export default function About() {
           About Me
         </h2>
         <p className="mt-4 text-slate-700 dark:text-slate-300">
-          I’m a full-stack engineer focused on building performant, accessible interfaces. I value
-          clarity, thoughtful motion, and maintainable code.
+          I’m a full-stack engineer passionate about building robust, scalable web applications from database to UI. I enjoy working across the stack, from backend APIs to frontend interfaces, with a focus on clean code, accessibility, and thoughtful design.
         </p>
 
         <div className="mt-8 space-y-4" aria-label="Skill levels">

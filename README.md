@@ -9,6 +9,9 @@
 ## Project summary
 A modern, responsive personal portfolio built with Next.js + TypeScript and Tailwind CSS that showcases projects, skills, an about section, and a contact form. Designed for recruiters, collaborators, and clients to learn about my work and contact me.
 
+**Why it matters:**  
+A personal portfolio is an essential tool for standing out in the tech industry. It acts as a dynamic resume and central hub for projects and achievements.
+
 ---
 
 ## Tech stack
