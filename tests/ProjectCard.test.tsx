@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ProjectCard, { Project } from "./ProjectCard";
+import ProjectCard, { Project } from "../src/components/ProjectCard";
 
 // Mock next/image for JSDOM
 vi.mock("next/image", () => ({

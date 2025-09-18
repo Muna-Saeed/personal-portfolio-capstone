@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { vi } from "vitest";
-import ContactForm from "./ContactForm";describe("ContactForm", () => {
+import ContactForm from "../src/components/ContactForm";describe("ContactForm", () => {
   beforeEach(() => {
     // @ts-expect-error - allow assignment for test
     global.fetch = vi.fn(() => Promise.resolve({ ok: true })) as any;
