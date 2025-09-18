@@ -3,3 +3,214 @@ description:
 globs:
 alwaysApply: true
 ---
+
+# Project Rules & Conventions
+
+## 🏗️ Architecture & File Organization
+
+### Directory Structure
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── projects/      # Project CRUD endpoints
+│   │   └── contact/       # Contact form endpoint
+│   ├── projects/          # Projects page
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # Reusable UI components
+├── data/                  # Static data & types
+├── lib/                   # Utilities & configurations
+├── models/                # Mongoose schemas
+└── scripts/               # Build & maintenance scripts
+```
+
+### Naming Conventions
+- **Components**: PascalCase (`ProjectCard.tsx`, `ContactForm.tsx`)
+- **Files**: kebab-case for pages, PascalCase for components
+- **API routes**: lowercase with hyphens (`/api/projects`, `/api/contact`)
+- **Variables**: camelCase (`projectData`, `isLoading`)
+- **Constants**: UPPER_SNAKE_CASE (`MAX_ITEMS_PER_PAGE`)
+
+## 🎨 Code Standards
+
+### TypeScript
+- **Always use TypeScript** for new files
+- **Export interfaces** for shared types (`Project`, `ProjectCardProps`)
+- **Use type inference** where possible, explicit types for props
+- **JSDoc comments** for complex functions and components
+
+```typescript
+/**
+ * Renders a single project card with preview image, title, description,
+ * technology badges, and optional links to live site and repository.
+ */
+export default function ProjectCard({ project }: ProjectCardProps) {
+  // Implementation
+}
+```
+
+### React Components
+- **Client components**: Use `"use client"` directive when needed
+- **Server components**: Default for pages and API routes
+- **Props interface**: Define above component
+- **Accessibility**: Include ARIA labels, semantic HTML, keyboard navigation
+
+```typescript
+interface ComponentProps {
+  /** Description of prop */
+  propName: string;
+}
+
+export default function Component({ propName }: ComponentProps) {
+  return (
+    <section role="banner" aria-label="Descriptive label">
+      {/* Implementation */}
+    </section>
+  );
+}
+```
+
+### Styling (Tailwind CSS)
+- **Utility-first approach**: Use Tailwind classes
+- **Responsive design**: Mobile-first with `sm:`, `md:`, `lg:` prefixes
+- **Dark mode**: Include `dark:` variants
+- **Consistent spacing**: Use Tailwind's spacing scale
+- **Component variants**: Use conditional classes for state changes
+
+```tsx
+<div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+  <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+    Title
+  </h2>
+</div>
+```
+
+## 🧪 Testing Standards
+
+### Test Files
+- **Location**: Co-locate with components (`Component.test.tsx`)
+- **Framework**: Vitest + @testing-library/react
+- **Naming**: `describe` blocks for component, `it` for test cases
+- **Coverage**: Test props, user interactions, error states
+
+```typescript
+describe("ComponentName", () => {
+  it("renders with required props", () => {
+    render(<Component prop="value" />);
+    expect(screen.getByText("Expected text")).toBeInTheDocument();
+  });
+
+  it("handles user interaction", () => {
+    render(<Component />);
+    fireEvent.click(screen.getByRole("button"));
+    expect(screen.getByText("Result")).toBeInTheDocument();
+  });
+});
+```
+
+### Mocking
+- **Next.js modules**: Mock `next/image`, `next/link` in tests
+- **API calls**: Mock `fetch` for integration tests
+- **External dependencies**: Mock as needed
+
+## 🗄️ Database & API
+
+### Mongoose Schemas
+- **Location**: `src/models/`
+- **Validation**: Use Mongoose validators for data integrity
+- **Timestamps**: Enable `{ timestamps: true }`
+- **JSON output**: Configure `toJSON` for clean API responses
+
+```typescript
+const Schema = new Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 1,
+    maxlength: 200
+  }
+}, { timestamps: true });
+```
+
+### API Routes
+- **Error handling**: Consistent error responses with status codes
+- **Validation**: Server-side validation for all inputs
+- **MongoDB connection**: Use `connectMongo()` helper
+- **Response format**: JSON with consistent structure
+
+```typescript
+export async function POST(request: Request) {
+  try {
+    await connectMongo(process.env.MONGODB_URI || "");
+    const body = await request.json();
+    const doc = await Model.create(body);
+    return NextResponse.json(doc, { status: 201 });
+  } catch (err) {
+    return NextResponse.json({ ok: false, error: (err as Error).message }, { status: 400 });
+  }
+}
+```
+
+## 📝 Documentation
+
+### README Updates
+- **Auto-update**: Use `npm run readme:update` to sync features
+- **Markers**: Use `<!-- AUTO-FEATURES:START -->` and `<!-- AUTO-FEATURES:END -->`
+- **Manual sections**: Keep project summary, tech stack, and AI integration strategy current
+
+### Code Comments
+- **JSDoc**: For functions, components, and complex logic
+- **Inline comments**: For business logic and edge cases
+- **TODO comments**: For future improvements
+
+## 🚀 Development Workflow
+
+### Git Workflow
+- **Branch naming**: `feature/description`, `fix/description`
+- **Commit messages**: Clear, descriptive, present tense
+- **Pull requests**: Include description of changes and testing
+
+### Environment Variables
+- **Required**: `MONGODB_URI` for database connection
+- **Optional**: `PORT` for server configuration
+- **Security**: Never commit sensitive data
+
+### Scripts
+- **Development**: `npm run dev` for Next.js
+- **Testing**: `npm test` for Vitest
+- **Linting**: `npm run lint` for ESLint
+- **Documentation**: `npm run readme:update` for README sync
+
+## 🎯 Performance & Accessibility
+
+### Performance
+- **Image optimization**: Use Next.js `Image` component
+- **Code splitting**: Leverage Next.js automatic code splitting
+- **Bundle size**: Monitor and optimize imports
+
+### Accessibility
+- **Semantic HTML**: Use proper heading hierarchy, landmarks
+- **ARIA labels**: Include descriptive labels for interactive elements
+- **Keyboard navigation**: Ensure all functionality is keyboard accessible
+- **Color contrast**: Maintain WCAG AA compliance
+
+## 🔧 Maintenance
+
+### Code Quality
+- **Linting**: Fix ESLint errors before committing
+- **Type safety**: Resolve TypeScript errors
+- **Testing**: Maintain test coverage for critical paths
+- **Dependencies**: Keep packages updated, audit for security issues
+
+### Refactoring
+- **DRY principle**: Extract reusable logic into utilities
+- **Single responsibility**: Keep components focused on one purpose
+- **Consistent patterns**: Follow established conventions
+- **Documentation**: Update docs when changing APIs or patterns
+
+---
+
+*This document should be updated as the project evolves and new patterns emerge.*

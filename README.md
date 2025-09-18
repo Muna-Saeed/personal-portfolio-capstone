@@ -68,7 +68,7 @@ interface Project {
   liveUrl?: string;
   image?: string;
 }
-
+```
 ---
 
 ## 🧠 AI Integration Strategy
